@@ -1,0 +1,19 @@
+{
+    "name": "graphql",
+    "version": "0.0.0",
+    "description": "Sample Code",
+    "main": "server.js",
+    "author": {
+        "name": "Ari D",
+        "email": "adas1990.gatech@gmail.com"
+    },
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "express": "4.16.4",
+        "lodash": "4.17.11",
+        "graphql": "14.3.1",
+        "express-graphql": "0.8.0"
+    }
+}

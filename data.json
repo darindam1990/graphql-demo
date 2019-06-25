@@ -1,0 +1,33 @@
+{
+    "blockTraffic": true,
+    "tenants": [{
+      "id": "pepsi",
+      "apps": [{
+        "id": "finance",
+        "created_by": "xju",
+        "created_at": 1561426582340
+      }, {
+        "id": "hr",
+        "created_by": "sahap",
+        "created_at": 1561424582340
+      }, {
+        "id": "engg",
+        "created_by": "xju",
+        "created_at": 1561429582340
+      }]
+    }, {
+      "id": "coke",
+      "apps": [{
+        "id": "mktg",
+        "created_by": "clintp",
+        "created_at": 1561326582340
+      }]
+    }, {
+      "id": "sprint",
+      "apps": [{
+        "id": "mktg",
+        "created_by": "joshn",
+        "created_at": 1561426782340
+      }]
+    }]
+  }
