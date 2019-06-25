@@ -2,7 +2,7 @@ const express = require('express');
 const { buildSchema } = require('graphql');
 const graphqlHTTP = require('express-graphql');
 const _ = require('lodash');
-const data = require('./data.json.js');
+const data = require('./data.json');
 
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema(`
