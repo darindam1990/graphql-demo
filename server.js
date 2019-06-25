@@ -10,7 +10,7 @@ const schema = buildSchema(`
     infra: Infra,
     tenants: [Tenant],
     tenant(id: String!): Tenant,
-    appsForTenant(tenantId: String!): [App],
+    appsForTenant(tenantId: String!, count: Int, afterAppId: String): AppList,
     appForTenant(tenantId: String!, appId: String!): App
   },
   type Mutation {
@@ -29,16 +29,36 @@ const schema = buildSchema(`
     created_by: String,
     # Create new scalar type Date
     created_at: Float
+  },
+  # Need to look more in to creating generic types
+  # GraphQl expects all types to be concrete
+  # https://stackoverflow.com/questions/49806296/graphql-js-use-interface-as-a-default-fallback-type-in-resolvetype-function
+  type AppList {
+    count: Int,
+    results: [App],
+    cursor: String
   }
 `);
 
 const getInfra = () => data;
 const getTenants = () => data.tenants;
 const getTenant = ({ id }) => data.tenants.find(o => o.id === id);
-const getAppsForTenant = ({ tenantId }) => {
+const getAppsForTenant = ({ tenantId, count, afterAppId }) => {
+  const MAX_COUNT = 5;
+  let start = -1;
   const tenant = data.tenants.find(o => o.id === tenantId);
   if (tenant) {
-    return tenant.apps;
+    if (afterAppId) {
+      start = tenant.apps.findIndex(o => o.id === afterAppId);
+    }
+    const end = start + 1 + (typeof count === 'undefined' ? MAX_COUNT : count);
+    const data = tenant.apps.slice(start + 1, end);
+    const last = data.slice(-1)[0];
+    return {
+      count: data.length,
+      results: data,
+      cursor: last ? last.id : ''
+    };
   } else {
     throw new Error(`Tenant id: ${tenantId} doesn't exist`)
   }
